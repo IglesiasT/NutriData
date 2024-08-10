@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  db:
+    container_name: data-analysis-db
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - trackwise-network
+
+  app:
+    container_name: data-analysis-app
+    image: data-analysis-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./data-analysis:/usr/src/app
+    environment:
+      - DATABASE_URL=mongodb://db:27017/data-analysis
+    depends_on:
+      - db
+    networks:
+      - trackwise-network
+
+networks:
+    trackwise-network:
+
+volumes:
+    mongo-data:
