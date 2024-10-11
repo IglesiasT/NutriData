@@ -20,6 +20,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     environment:
       - DATABASE_URL=jdbc:postgresql://db:5432/${POSTGRES_DB}
       - DATABASE_USERNAME=${POSTGRES_USER}
