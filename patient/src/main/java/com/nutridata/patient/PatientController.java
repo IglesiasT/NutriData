@@ -1,5 +1,7 @@
 package com.nutridata.patient;
 
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +15,7 @@ public class PatientController {
         this.patientService = patientService;
     }
 
+    @GetMapping
     public List<Patient> getPatients() {
         return this.patientService.getPatients();
     }
@@ -22,8 +25,9 @@ public class PatientController {
         return this.patientService.getPatient(id);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void addNewPatient(Patient patient) {
+    public void addNewPatient(@RequestBody @Valid Patient patient) {
         this.patientService.addNewPatient(patient);
     }
 }
