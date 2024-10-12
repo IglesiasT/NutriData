@@ -14,16 +14,16 @@ public class PatientController {
     }
 
     public List<Patient> getPatients() {
-        return patientService.getPatients();
+        return this.patientService.getPatients();
     }
 
     @GetMapping("/{id}")
     public Patient getPatient(@PathVariable Long id) {
-        return patientService.getPatient(id);
+        return this.patientService.getPatient(id);
     }
 
     @PostMapping
     public void addNewPatient(Patient patient) {
-        patientService.addNewPatient(patient);
+        this.patientService.addNewPatient(patient);
     }
 }
