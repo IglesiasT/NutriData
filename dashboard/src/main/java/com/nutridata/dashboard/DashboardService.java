@@ -1,4 +1,4 @@
-package com.trackwise.dashboard;
+package com.nutridata.dashboard;
 
 import org.springframework.stereotype.Service;
 

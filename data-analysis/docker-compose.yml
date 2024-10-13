@@ -8,7 +8,7 @@ services:
     volumes:
       - mongo-data:/data/db
     networks:
-      - trackwise-network
+      - nutridata-network
 
   app:
     container_name: data-analysis-app
@@ -23,10 +23,10 @@ services:
     depends_on:
       - db
     networks:
-      - trackwise-network
+      - nutridata-network
 
 networks:
-    trackwise-network:
+  nutridata-network:
 
 volumes:
     mongo-data:

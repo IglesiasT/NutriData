@@ -1,4 +1,4 @@
-package com.trackwise.dashboard;
+package com.nutridata.dashboard;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
