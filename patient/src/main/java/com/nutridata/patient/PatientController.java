@@ -25,6 +25,18 @@ public class PatientController {
         return this.patientService.getPatient(id);
     }
 
+    @ExceptionHandler(InvalidPatientIdException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleInvalidPatientId(InvalidPatientIdException e) {
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(PatientNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handlePatientNotFound(PatientNotFoundException e) {
+        return e.getMessage();
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void addNewPatient(@RequestBody @Valid Patient patient) {

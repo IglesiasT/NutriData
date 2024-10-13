@@ -1,8 +1,6 @@
 package com.nutridata.patient;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,12 +17,12 @@ public class PatientService {
     }
 
     public Patient getPatient(Long id) {
-        if (id < 1) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Patient ID can not be negative or zero");
+        if (id <= 0) {
+            throw new InvalidPatientIdException("Patient ID can not be negative or zero");
         }
 
         return patientRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient with id " + id + " not found"));
+                .orElseThrow(() -> new PatientNotFoundException("Patient with id " + id + " not found"));
     }
 
     public Patient addNewPatient(Patient patient) {
