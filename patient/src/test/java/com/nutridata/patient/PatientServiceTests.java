@@ -57,9 +57,26 @@ class PatientServiceTests {
 		Long nonExistentId = 1L;
 		when(this.patientRepository.findById(nonExistentId)).thenReturn(Optional.empty());
 
-		assertThrows(PatientNotFoundException.class, () -> {
-			patientService.getPatient(nonExistentId);
-		});
+		assertThrows(PatientNotFoundException.class, () -> patientService.getPatient(nonExistentId));
 	}
 
+	@Test
+	public void getPatient_WithNegativeId_ShouldThrowInvalidIdException() {
+		assertThrows(InvalidPatientIdException.class, () -> patientService.getPatient(-1L));
+	}
+
+	@Test
+	public void getPatient_WithZeroId_ShouldThrowInvalidIdException() {
+		assertThrows(InvalidPatientIdException.class, () -> patientService.getPatient(0L));
+	}
+
+	@Test
+	public void addNewPatient_ShouldReturnPatient() {
+		Patient patient = new Patient();
+		when(this.patientRepository.save(patient)).thenReturn(patient);
+
+		Patient result = patientService.addNewPatient(patient);
+
+		assertEquals(patient, result);
+	}
 }
