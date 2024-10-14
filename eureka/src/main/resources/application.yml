@@ -1,0 +1,17 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka-server
+  config:
+    import: optional:configserver:http://localhost:8888 # Provisional, to be removed
+
+eureka:
+    instance:
+        hostname: localhost
+    client:
+        registerWithEureka: false
+        fetchRegistry: false
+        server-url:
+          defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
