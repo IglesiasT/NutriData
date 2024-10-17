@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+          - id: dashboard-route
+            uri: ${DASHBOARD_URL:http://localhost:8080}
+            predicates:
+              - Path=/dashboard/**
+            filters:
+              - PrefixPath=/api
+              - name: AddResponseHeader
+                args:
+                  name: X-Powered-By
+                  value: NutriData Gateway
+    config:
+      enabled: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true
