@@ -22,6 +22,7 @@
 		<module>patient</module>
 		<module>eureka</module>
 		<module>config-server</module>
+		<module>meal-plan</module>
 	</modules>
 
 	<url/>
