@@ -13,9 +13,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PatientController.class)
@@ -51,5 +51,11 @@ public class PatientControllerTests {
 
         this.mockMvc.perform(post(rootUri).contentType(MediaType.APPLICATION_JSON)
                 .content(patientJson)).andExpect(status().isCreated());
+    }
+
+    @Test
+    public void deletePatient_WitValidId_ShouldReturnNoContentStatus() throws Exception {
+        doNothing().when(this.patientService).deletePatient(1L);
+        this.mockMvc.perform(delete(rootUri + "/1")).andExpect(status().isNoContent());
     }
 }

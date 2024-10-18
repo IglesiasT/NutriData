@@ -42,4 +42,10 @@ public class PatientController {
     public void addNewPatient(@RequestBody @Valid Patient patient) {
         this.patientService.addNewPatient(patient);
     }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void deletePatient(@PathVariable Long id) {
+        this.patientService.deletePatient(id);
+    }
 }

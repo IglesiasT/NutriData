@@ -28,4 +28,8 @@ public class PatientService {
     public Patient addNewPatient(Patient patient) {
         return this.patientRepository.save(patient);
     }
+
+    public void deletePatient(Long id) {
+        this.patientRepository.deleteById(id);
+    }
 }
