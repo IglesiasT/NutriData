@@ -1,0 +1,32 @@
+services:
+  db:
+    container_name: mealplan-db
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USERNAME: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - mealplan-db:/var/lib/postgresql/data
+
+  app:
+    container_name: mealplan-app
+    image: mealplan-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
+      DATABASE_USERNAME: ${POSTGRES_USERNAME}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - db
+
+volumes:
+  mealplan-db:
