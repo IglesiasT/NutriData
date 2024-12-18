@@ -24,7 +24,7 @@ public class PatientControllerTests {
     private MockMvc mockMvc;
     @MockBean
     private PatientService patientService;
-    private static final String rootUri = "/api/patient";
+    private static final String rootUri = "/api/patients";
 
     @Test
     public void getRootUri_ShouldReturnOkStatus() throws Exception {
