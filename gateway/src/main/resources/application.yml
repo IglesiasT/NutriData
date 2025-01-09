@@ -12,6 +12,16 @@ spring:
                 args:
                   name: X-Powered-By
                   value: NutriData Gateway
+          - id: patient-route
+            uri: ${PATIENT_URL:http://localhost:3000}
+            predicates:
+              - Path=/api/patients/**
+            filters:
+              - PrefixPath=/api
+              - name: AddResponseHeader
+                args:
+                  name: X-Powered-By
+                  value: NutriData Gateway
     config:
       enabled: false
 management:
