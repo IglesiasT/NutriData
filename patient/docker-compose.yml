@@ -18,11 +18,11 @@ services:
         context: .
         dockerfile: Dockerfile
     ports:
-        - "8080:8080"
+        - "3000:3000"
     env_file:
       - .env
     environment:
-        DATABASE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
+        DATABASE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB} # db is the name of the service
         DATABASE_USERNAME: ${POSTGRES_USERNAME}
         DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
     depends_on:
