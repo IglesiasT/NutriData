@@ -1,0 +1,19 @@
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gateway:latest
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    networks:
+      - nutridata-network
+    environment:
+      - PATIENT_URL=${PATIENT_URL}
+    env_file:
+      - .env
+
+networks:
+  nutridata-network:
+    driver: bridge
