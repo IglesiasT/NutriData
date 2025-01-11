@@ -2,7 +2,6 @@ FROM maven:3.9.4-eclipse-temurin-17 as builder
 
 WORKDIR /app
 
-# Copy child pom.xml
 COPY pom.xml ./pom.xml
 COPY src ./src
 
