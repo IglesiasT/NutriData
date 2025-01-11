@@ -27,6 +27,12 @@ services:
         DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
     depends_on:
         - db
+    networks:
+        - nutridata-network
 
 volumes:
     patient-db:
+
+networks:
+    nutridata-network:
+      driver: bridge
