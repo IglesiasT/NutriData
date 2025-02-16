@@ -1,17 +1,15 @@
-server:
-  port: 8761
-
 spring:
   application:
     name: eureka-server
-  config:
-    import: optional:configserver:http://localhost:8888 # Provisional, to be removed
 
 eureka:
     instance:
-        hostname: localhost
+        hostname: eureka-server
     client:
         registerWithEureka: false
         fetchRegistry: false
-        server-url:
-          defaultZone: https://${eureka.instance.hostname}:${server.port}/eureka/
+        service-url:
+          defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+server:
+  port: 8761

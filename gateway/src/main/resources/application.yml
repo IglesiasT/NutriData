@@ -1,29 +1,24 @@
 spring:
+  application:
+    name: gateway
   cloud:
     gateway:
-      routes:
-          - id: dashboard-route
-            uri: ${DASHBOARD_URL:http://localhost:8080}
-            predicates:
-              - Path=/dashboard/**
-            filters:
-              - PrefixPath=/api
-              - name: AddResponseHeader
-                args:
-                  name: X-Powered-By
-                  value: NutriData Dashboard Gateway
-          - id: patient-route
-            uri: ${PATIENT_URL:http://localhost:3200}
-            predicates:
-              - Path=/patients/**
-            filters:
-              - PrefixPath=/api
-              - name: AddResponseHeader
-                args:
-                  name: X-Powered-By
-                  value: NutriData Patients Gateway
+      discovery:
+        locator:
+          enabled: true
     config:
       enabled: false
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://eureka-server:8761/eureka}
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
 management:
   endpoints:
     web:
