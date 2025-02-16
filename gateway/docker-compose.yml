@@ -10,10 +10,10 @@ services:
     networks:
       - nutridata-network
     environment:
-      - PATIENT_URL=${PATIENT_URL}
+      - EUREKA_SERVER=${EUREKA_SERVER}
     env_file:
       - .env
 
 networks:
-  nutridata-network:
-    driver: bridge
+    nutridata-network:
+      external: true

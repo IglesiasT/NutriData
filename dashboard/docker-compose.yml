@@ -31,3 +31,7 @@ services:
 
 volumes:
   dashboard-db:
+
+networks:
+  nutridata-network:
+    external: true

@@ -36,5 +36,5 @@ volumes:
     patient-db:
 
 networks:
-    nutridata-network:
-      driver: bridge
+  nutridata-network:
+    external: true

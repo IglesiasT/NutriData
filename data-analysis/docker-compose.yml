@@ -25,8 +25,9 @@ services:
     networks:
       - nutridata-network
 
-networks:
-  nutridata-network:
-
 volumes:
     mongo-data:
+
+networks:
+  nutridata-network:
+    external: true

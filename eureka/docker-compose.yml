@@ -12,4 +12,4 @@ services:
 
 networks:
   nutridata-network:
-    driver: bridge
+    external: true
