@@ -8,7 +8,6 @@ public class PatientDTO {
     @NotNull
     private String name;
 
-    @NotNull
     private String surname;
 
     @Email
