@@ -2,6 +2,7 @@ package com.nutridata.patient;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,5 +48,10 @@ public class PatientController {
     @DeleteMapping("/{id}")
     public void deletePatient(@PathVariable Long id) {
         this.patientService.deletePatient(id);
+    }
+
+    @PutMapping("/{id}")
+    public void updatePatient(@PathVariable Long id, @RequestBody @Valid PatientDTO patientDTO) {
+        this.patientService.updatePatient(id, patientDTO);
     }
 }

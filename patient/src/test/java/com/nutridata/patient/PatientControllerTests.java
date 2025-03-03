@@ -58,4 +58,53 @@ public class PatientControllerTests {
         doNothing().when(this.patientService).deletePatient(1L);
         this.mockMvc.perform(delete(rootUri + "/1")).andExpect(status().isNoContent());
     }
+
+    @Test
+    public void putPatient_WithAllValidData_ShouldReturnOkStatus() throws Exception {
+        String patientJson = "{" +
+                "\"name\":\"John\"," +
+                "\"surname\":\"Doe\"," +
+                "\"email\":\"email@email.com\"," +
+                "\"age\":\"25\"," +
+                "\"weight\":\"80\"," +
+                "\"height\":\"180\"" +
+                "}";
+        when(this.patientService.getPatient(1L)).thenReturn(new Patient());
+
+        this.mockMvc.perform(put(rootUri + "/1").contentType(MediaType.APPLICATION_JSON)
+                .content(patientJson)).andExpect(status().isOk());
+    }
+
+    @Test
+    public void putPatient_WithInvalidId_ShouldReturnNotFoundStatus() throws Exception {
+        String patientJson = "{" +
+                "\"name\":\"John\"," +
+                "\"surname\":\"Doe\"," +
+                "\"email\":\"email@email.com\"," +
+                "\"age\":\"25\"," +
+                "\"weight\":\"80\"," +
+                "\"height\":\"180\"" +
+                "}";
+        when(this.patientService.getPatient(1L))
+                .thenThrow(new PatientNotFoundException("Patient with id 1 not found"));
+
+        this.mockMvc.perform(get(rootUri + "/1")).andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void putPatient_WithInvalidData_ShouldReturnBadRequestStatus() throws Exception {
+        String patientJson = "{" +
+                "\"name\":\"John\"," +
+                "\"surname\":\"Doe\"," +
+                "\"email\":\"email.com\"," +
+                "\"age\":-25," +
+                "\"weight\":-80," +
+                "\"height\":-180" +
+                "}";
+
+        this.mockMvc.perform(put(rootUri + "/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(patientJson))
+                .andExpect(status().isBadRequest());
+    }
 }
