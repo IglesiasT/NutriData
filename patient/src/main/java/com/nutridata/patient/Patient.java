@@ -23,6 +23,10 @@ public class Patient {
         this.name = name;
     }
 
+    public String getFullName() {
+        return name + " " + surname;
+    }
+
     public Long getId() {
         return id;
     }
