@@ -30,3 +30,7 @@ services:
 
 volumes:
   mealplan-db:
+
+networks:
+  nutridata-network:
+    external: true

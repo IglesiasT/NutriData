@@ -1,29 +1,30 @@
 spring:
+  application:
+    name: gateway
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
       routes:
-          - id: dashboard-route
-            uri: ${DASHBOARD_URL:http://localhost:8080}
-            predicates:
-              - Path=/dashboard/**
-            filters:
-              - PrefixPath=/api
-              - name: AddResponseHeader
-                args:
-                  name: X-Powered-By
-                  value: NutriData Gateway
-          - id: patient-route
-            uri: ${PATIENT_URL:http://localhost:3000}
-            predicates:
-              - Path=/api/patients/**
-            filters:
-              - PrefixPath=/api
-              - name: AddResponseHeader
-                args:
-                  name: X-Powered-By
-                  value: NutriData Gateway
+        - id: patient-service
+          uri: lb://patient
+          predicates:
+            - Path=/api/patients/**
     config:
       enabled: false
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://eureka-server:8761/eureka}
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
 management:
   endpoints:
     web:
@@ -34,3 +35,11 @@ management:
       show-details: always
     gateway:
       enabled: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.cloud.netflix.eureka: DEBUG
+    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: TRACE
+    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: TRACE
