@@ -12,6 +12,10 @@ spring:
           uri: lb://patient
           predicates:
             - Path=/api/patients/**
+        - id: dashboard-service
+          uri: lb://dashboard
+          predicates:
+            - Path=/api/dashboard/**
     config:
       enabled: false
 
