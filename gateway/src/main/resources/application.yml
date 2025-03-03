@@ -6,6 +6,12 @@ spring:
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: patient-service
+          uri: lb://patient
+          predicates:
+            - Path=/api/patients/**
     config:
       enabled: false
 
@@ -29,3 +35,11 @@ management:
       show-details: always
     gateway:
       enabled: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.cloud.netflix.eureka: DEBUG
+    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: TRACE
+    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: TRACE
