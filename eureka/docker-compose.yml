@@ -2,13 +2,18 @@ services:
   eureka-server:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     image: eureka-server:latest
     container_name: eureka-server
     ports:
       - "8761:8761"
     networks:
       - nutridata-network
+    volumes:
+      - ./src:/app/src  # Mounts the source code as a volume
+      - ./pom.xml:/app/pom.xml  # Mounts the dependencies file as a volume
+    environment:
+      - SPRING_DEVTOOLS_RESTART_ENABLED=true  # Enable DevTools for hot reloading
 
 networks:
   nutridata-network:

@@ -1,33 +1,41 @@
-version: "3.9"
 services:
-#  db:
-#    container_name: dashboard-db
-#    image: postgres:13
-#    ports:
-#      - "5432:5432"
-#    environment:
-#      - POSTGRES_DB=${POSTGRES_DB}
-#      - POSTGRES_USER=${POSTGRES_USER}
-#      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-#    volumes:
-#      - dashboard-db:/var/lib/postgresql/data
+  db:
+    container_name: dashboard-db
+    image: postgres:13
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USERNAME: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_DEVTOOLS_RESTART_ENABLED: true  # Enable DevTools for hot reloading
+    volumes:
+      - dashboard-db:/var/lib/postgresql/data
+    networks:
+      - nutridata-network
 
   app:
     container_name: dashboard-app
     image: dashboard-app
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
+    volumes:
+      - ./src:/app/src
+      - ./pom.xml:/app/pom.xml
     env_file:
       - .env
     environment:
-      - DATABASE_URL=jdbc:postgresql://db:5432/${POSTGRES_DB}
-      - DATABASE_USERNAME=${POSTGRES_USER}
-      - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
-#    depends_on:
-#      - db
+      DATABASE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB} # db is the name of the service
+      DATABASE_USERNAME: ${POSTGRES_USERNAME}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_DEVTOOLS_RESTART_ENABLED: true  # Enable DevTools for hot reloading
+    depends_on:
+      - db
+    networks:
+      - nutridata-network
 
 volumes:
   dashboard-db:

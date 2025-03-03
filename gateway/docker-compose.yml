@@ -2,15 +2,19 @@ services:
   gateway:
     build:
       context: .
-      dockerfile: Dockerfile
-    image: gateway:latest
+      dockerfile: Dockerfile.dev
+    image: api-gateway:latest
     container_name: api-gateway
     ports:
       - "8080:8080"
     networks:
       - nutridata-network
+    volumes:
+      - ./src:/app/src  # Mounts the source code as a volume
+      - ./pom.xml:/app/pom.xml  # Mounts the dependencies file as a volume
     environment:
       - EUREKA_SERVER=${EUREKA_SERVER}
+      - SPRING_DEVTOOLS_RESTART_ENABLED=true  # Enable DevTools for hot reloading
     env_file:
       - .env
 
