@@ -23,6 +23,9 @@ eureka:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     prefer-ip-address: true
 
+jwt:
+  secret: tu_clave_secreta_muy_larga_y_segura_al_menos_256_bits
+  expiration: 86400000
 
 server:
   port: 8081
