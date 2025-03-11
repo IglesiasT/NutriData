@@ -3,10 +3,10 @@ services:
     container_name: auth-db
     image: postgres:latest
     ports:
-      - "5434:5434"
+      - "5434:5432"
     environment:
       POSTGRES_DB: ${AUTH_DB}
-      POSTGRES_USERNAME: ${AUTH_USERNAME}
+      POSTGRES_USER: ${AUTH_USERNAME}
       POSTGRES_PASSWORD: ${AUTH_PASSWORD}
       SPRING_DEVTOOLS_RESTART_ENABLED: true  # Enable DevTools for hot reloading
     volumes:
@@ -28,8 +28,8 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: jdbc:postgresql://db:5434/${AUTH_DB} # db is the name of the service
-      DATABASE_USERNAME: ${AUTH_USERNAME}
+      DATABASE_URL: jdbc:postgresql://db:5432/${AUTH_DB} # db is the name of the service
+      DATABASE_USER: ${AUTH_USERNAME}
       DATABASE_PASSWORD: ${AUTH_PASSWORD}
       SPRING_DEVTOOLS_RESTART_ENABLED: true  # Enable DevTools for hot reloading
     depends_on:
