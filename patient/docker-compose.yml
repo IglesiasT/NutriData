@@ -3,7 +3,7 @@ services:
     container_name: patient-db
     image: postgres:latest
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
         POSTGRES_DB: ${POSTGRES_DB}
         POSTGRES_USERNAME: ${POSTGRES_USERNAME}
