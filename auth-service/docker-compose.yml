@@ -1,0 +1,45 @@
+services:
+  db:
+    container_name: auth-db
+    image: postgres:latest
+    ports:
+      - "5434:5434"
+    environment:
+      POSTGRES_DB: ${AUTH_DB}
+      POSTGRES_USERNAME: ${AUTH_USERNAME}
+      POSTGRES_PASSWORD: ${AUTH_PASSWORD}
+      SPRING_DEVTOOLS_RESTART_ENABLED: true  # Enable DevTools for hot reloading
+    volumes:
+      - auth-db:/var/lib/postgresql/data
+    networks:
+      - nutridata-network
+
+  app:
+    container_name: auth-app
+    image: auth-app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3201:3201"
+    volumes:
+      - ./src:/app/src
+      - ./pom.xml:/app/pom.xml
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5434/${AUTH_DB} # db is the name of the service
+      DATABASE_USERNAME: ${AUTH_USERNAME}
+      DATABASE_PASSWORD: ${AUTH_PASSWORD}
+      SPRING_DEVTOOLS_RESTART_ENABLED: true  # Enable DevTools for hot reloading
+    depends_on:
+      - db
+    networks:
+      - nutridata-network
+
+volumes:
+  auth-db:
+
+networks:
+  nutridata-network:
+    external: true
