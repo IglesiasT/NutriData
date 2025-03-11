@@ -22,6 +22,10 @@ spring:
           uri: lb://dashboard
           predicates:
             - Path=/api/dashboard/**
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
     config:
       enabled: false
 
