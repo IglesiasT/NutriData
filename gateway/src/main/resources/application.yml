@@ -13,19 +13,6 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-      routes:
-        - id: patient-service
-          uri: lb://patient
-          predicates:
-            - Path=/api/patients/**
-        - id: dashboard-service
-          uri: lb://dashboard
-          predicates:
-            - Path=/api/dashboard/**
-        - id: auth-service
-          uri: lb://auth-service
-          predicates:
-            - Path=/auth/**
     config:
       enabled: false
 
@@ -57,3 +44,6 @@ logging:
     org.springframework.cloud.netflix.eureka: DEBUG
     org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: TRACE
     org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: TRACE
+
+jwt:
+  secret: tu_clave_secreta_muy_larga_y_segura_al_menos_256_bits
