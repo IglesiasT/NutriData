@@ -23,7 +23,6 @@ services:
       KC_DB_PASSWORD: ${KEYCLOAK_PASSWORD}
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN_USER}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-      KC_HTTP_RELATIVE_PATH: /auth
     ports:
       - "8181:8080"
     command: start-dev
@@ -48,7 +47,7 @@ services:
     environment:
       SPRING_DEVTOOLS_RESTART_ENABLED: true
       # Keycloak configuration for the auth service
-      KEYCLOAK_AUTH_SERVER_URL: http://keycloak:8181/auth
+      KEYCLOAK_AUTH_SERVER_URL: http://keycloak:8181
       KEYCLOAK_REALM: nutridata
       KEYCLOAK_RESOURCE: auth-service
       KEYCLOAK_CREDENTIALS_SECRET: ${KEYCLOAK_CLIENT_SECRET}
