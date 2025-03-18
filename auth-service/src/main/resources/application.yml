@@ -18,7 +18,7 @@ keycloak:
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_SERVER:http://eureka-server:8761/eureka}
+      defaultZone: ${EUREKA_SERVER:http://eureka:password@eureka-server:8761/eureka}
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     prefer-ip-address: true
