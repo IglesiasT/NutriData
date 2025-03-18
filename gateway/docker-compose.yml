@@ -14,7 +14,11 @@ services:
       - ./pom.xml:/app/pom.xml  # Mounts the dependencies file as a volume
     environment:
       - EUREKA_SERVER=${EUREKA_SERVER}
-      - SPRING_DEVTOOLS_RESTART_ENABLED=true  # Enable DevTools for hot reloading
+      - SPRING_DEVTOOLS_RESTART_ENABLED=true # Enable DevTools for hot reloading
+      - KEYCLOAK_URL=${KEYCLOAK_URL}
+      - KEYCLOAK_REALM=${KEYCLOAK_REALM}
+      - KEYCLOAK_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
+      - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
     env_file:
       - .env
 
