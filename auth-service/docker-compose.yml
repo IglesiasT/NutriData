@@ -25,7 +25,7 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KC_HTTP_RELATIVE_PATH: /auth
     ports:
-      - "8181:8181"
+      - "8181:8080"
     command: start-dev
     depends_on:
       - keycloak-db
