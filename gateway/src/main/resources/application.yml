@@ -18,14 +18,22 @@ spring:
         provider:
           keycloak:
             issuer-uri: ${KEYCLOAK_URL:http://keycloak:8080}/realms/${KEYCLOAK_REALM:nutridata-realm}
+            authorization-uri: ${keycloak.external-url}/realms/nutridata-realm/protocol/openid-connect/auth
+            token-uri: ${KEYCLOAK_URL:http://keycloak:8080}/realms/${KEYCLOAK_REALM:nutridata-realm}/protocol/openid-connect/token
+            user-info-uri: ${KEYCLOAK_URL:http://keycloak:8080}/realms/${KEYCLOAK_REALM:nutridata-realm}/protocol/openid-connect/userinfo
+            jwk-set-uri: ${KEYCLOAK_URL:http://keycloak:8080}/realms/${KEYCLOAK_REALM:nutridata-realm}/protocol/openid-connect/certs
+            user-name-attribute: preferred_username
         registration:
           keycloak:
             provider: keycloak
-            scope: openid
+            scope: openid,profile,email
             client-id: ${KEYCLOAK_CLIENT_ID:nutridata_client}
             client-secret: ${KEYCLOAK_CLIENT_SECRET}
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+
+keycloak:
+  external-url: http://localhost:8181 # It should be accessible from the host machine
 
 eureka:
   client:
