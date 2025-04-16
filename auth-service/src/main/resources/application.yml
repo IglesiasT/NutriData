@@ -8,7 +8,7 @@ spring:
 # Configuración de Keycloak
 keycloak:
   auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL:http://keycloak:8080}
-  realm: ${KEYCLOAK_REALM:nutridata}
+  realm: ${KEYCLOAK_REALM:nutridata-realm}
   resource: ${KEYCLOAK_RESOURCE:auth-service}
   credentials:
     secret: ${KEYCLOAK_CLIENT_SECRET}
