@@ -1,5 +1,6 @@
 package com.nutridata.gateway.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
@@ -22,6 +23,11 @@ import java.util.List;
 @Configuration
 @EnableWebFluxSecurity
 public class GatewayConfig {
+    @Value("${spring.security.oauth2.client.provider.keycloak.issuer-uri}")
+    private String issuerUri;
+
+    @Value("${keycloak.external-url}")
+    private String keycloakExternalUrl;
 
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder) {
@@ -89,6 +95,6 @@ public class GatewayConfig {
 
     @Bean
     public ReactiveJwtDecoder jwtDecoder() {
-        return ReactiveJwtDecoders.fromIssuerLocation("http://keycloak:8080/realms/nutridata-realm");
+        return ReactiveJwtDecoders.fromIssuerLocation(issuerUri);
     }
 }
