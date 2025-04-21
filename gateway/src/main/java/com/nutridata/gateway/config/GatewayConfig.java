@@ -26,9 +26,6 @@ public class GatewayConfig {
     @Value("${spring.security.oauth2.client.provider.keycloak.issuer-uri}")
     private String issuerUri;
 
-    @Value("${keycloak.external-url}")
-    private String keycloakExternalUrl;
-
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
