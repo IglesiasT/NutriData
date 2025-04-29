@@ -1,31 +1,27 @@
 spring:
   application:
     name: auth-service
-  datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
-  jpa:
-    database: postgresql
-    properties:
-      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
   cloud:
     discovery:
       enabled: true
 
+# Configuración de Keycloak
+keycloak:
+  auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL:http://keycloak:8080}
+  realm: ${KEYCLOAK_REALM:nutridata-realm}
+  resource: ${KEYCLOAK_RESOURCE:auth-service}
+  credentials:
+    secret: ${KEYCLOAK_CLIENT_SECRET}
+  bearer-only: true
+  public-client: false
+
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_SERVER:http://eureka-server:8761/eureka}
+      defaultZone: ${EUREKA_SERVER:http://eureka:password@eureka-server:8761/eureka}
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     prefer-ip-address: true
 
-jwt:
-  secret: tu_clave_secreta_muy_larga_y_segura_al_menos_256_bits
-  expiration: 86400000
-
 server:
-  port: 8081
+  port: 8080

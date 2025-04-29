@@ -7,13 +7,30 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+      default-filters:
+        - TokenRelay
+        - SaveSession
     config:
       enabled: false
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: ${KEYCLOAK_URL:http://keycloak:8080}/realms/${KEYCLOAK_REALM:nutridata-realm}
+        registration:
+          keycloak:
+            provider: keycloak
+            scope: openid,profile,email
+            client-id: ${KEYCLOAK_CLIENT_ID:nutridata_client}
+            client-secret: ${KEYCLOAK_CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
 
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_SERVER:http://eureka-server:8761/eureka}
+      defaultZone: ${EUREKA_SERVER:http://eureka:password@eureka-server:8761/eureka}
     register-with-eureka: true
     fetch-registry: true
   instance:
@@ -38,6 +55,6 @@ logging:
     org.springframework.cloud.netflix.eureka: DEBUG
     org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: TRACE
     org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: TRACE
-
-jwt:
-  secret: tu_clave_secreta_muy_larga_y_segura_al_menos_256_bits
+    org.springframework.security: TRACE
+    org.springframework.security.oauth2: TRACE
+    org.springframework.security.web: TRACE
